@@ -61,6 +61,23 @@ Classes inherited from Base Model:
 * `def save(self)` - serializes __objects to the JSON file (path: __file_path)
 * ` def reload(self)` -  deserializes the JSON file to __objects
 
+#### `web_flask/` directory contains web applications implementation using the Flask web framework:
+* [0-hello.py](/web_flask/0-hello.py)
+* [1-hbnb_route.py](/web_flask/1-hbnb_route.py)
+* [2-c_route.py](/web_flask/2-c_route.py)
+* [3-python_route.py](/web_flask/3-python_route.py)
+* [4-number_route.py](/web_flask/4-number_route.py)
+* [5-number_template.py](/web_flask/5-number_template.py)
+* [6-number_odd_or_even.py](/web_flask/6-number_odd_or_even.py)
+* [7-states_list.py](/web_flask/7-states_list.py)
+* [8-cities_by_states.py](/web_flask/8-cities_by_states.py)
+* [9-states.py](/web_flask/9-states.py)
+* [10-hbnb_filters.py](/web_flask/10-hbnb_filters.py)
+
+#### `/web_flask/static/` directory contains images and styling for html page:
+
+#### `/web_flask/templates/` directory contains files for displaying html contents:
+
 #### `/tests` directory contains all unit test cases for this project:
 [/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
 TestBaseModelDocs class:
