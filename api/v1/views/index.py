@@ -14,10 +14,12 @@ from models import storage
 classes = {"amenities": Amenity, "cities": City,
            "places": Place, "reviews": Review, "states": State, "users": User}
 
+
 @app_views.route('/status', strict_slashes=True)
 def status():
     """ return the status of your API"""
     return jsonify({"status": "OK"})
+
 
 @app_views.route('/stats', strict_slashes=True)
 def stats():
@@ -25,4 +27,4 @@ def stats():
     new_dict = {}
     for cls, value in classes.items():
         new_dict[cls] = storage.count(value)
-    return jsonify(new_dict)        
+    return jsonify(new_dict)
