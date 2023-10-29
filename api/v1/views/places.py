@@ -91,11 +91,11 @@ def update_places(place_id):
             return jsonify({'error': 'Not found'}), 404
 
         if not request.is_json:
-            return jsonify({'error': 'Not a JSON'}), 400
+            return ("Not a JSON"), 400
 
         put_args = request.get_json()
-        if not put_args:
-            return jsonify({'error': 'Not a JSON'}), 400
+        if put_args is None:
+            return ("Not a JSON"), 400
 
         for key, value in put_args.items():
             if not key in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
