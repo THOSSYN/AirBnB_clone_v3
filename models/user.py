@@ -1,12 +1,15 @@
 #!/usr/bin/python3
 """ holds class User"""
+
 import models
+import hashlib
 from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 import hashlib
+
 
 class User(BaseModel, Base):
     """Representation of a user """
@@ -27,10 +30,11 @@ class User(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initializes user"""
         super().__init__(*args, **kwargs)
-        self._hash_pwd()
+        if "password" in kwargs:
+            self.password = self._hash_password(self.password)
 
-    def _hash_pwd(self):
-        """A password hashing method"""
+    def _hash_password(self, password):
+        """hash password using 256"""
         md5 = hashlib.md5()
-        md5.update(self.password.encode('utf-8'))
-        self.password = md5.hexdigest()
+        md5.update(password.encode('utf-8'))
+        return md5.hexdigest()
