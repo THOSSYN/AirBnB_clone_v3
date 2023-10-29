@@ -74,10 +74,9 @@ class BaseModel:
 
         return new_dict
 
-        if "password" in new_dict:
+        """if "password" in new_dict:
             del new_dict["password"]
-
-        return new_dict
+            return new_dict"""
 
     def delete(self):
         """delete the current instance from the storage"""
