@@ -42,10 +42,10 @@ def post_amenity():
     data = request.get_json()
 
     if 'name' not in data:
-        return jsonify({'error': 'Missing name'}), 400
+        return ("Missing name"), 400
 
     if not request.is_json:
-        return jsonify({'error': 'Not a JSON'}), 400
+        return ("Not a JSON"), 400
 
     new_amenity = Amenity(**data)
     storage.new(new_amenity)
@@ -58,12 +58,12 @@ def put_amenity(amenity_id):
     per_amenity = storage.get(Amenity, amenity_id)
 
     if per_amenity is None:
-        return jsonify({'eeror': 'Not found'}), 404
-
-    if not request.is_json:
-        abort(400, "Not a JSON")
+        return jsonify({'error': 'Not found'}), 404
 
     put_args = request.get_json()
+
+    if not request.is_json:
+        return ("Not a JSON"), 400
 
     for key, value in put_args.items():
         if not key in ['id', 'created_at', 'updated_at']:
