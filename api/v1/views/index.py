@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""A script that display an index page with status"""
+
 from flask import jsonify
 from api.v1.views import app_views
 from models.amenity import Amenity
