@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""A script that displays a state"""
+
 from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
@@ -51,11 +53,11 @@ def add_state():
             return ("Not a JSON"), 400
         if 'name' not in data:
             return ("Missing name"), 400
-        # unpack the dictionary data
+
         new_state = State(**data)
-        # add new object to the database
+
         storage.new(new_state)
-        # save new_object
+
         storage.save()
         return jsonify(new_state.to_dict()), 201
     else:
@@ -72,7 +74,7 @@ def update_state(state_id):
         abort(404)
     if data is None:
         return ("Not a JSON"), 400
-    # Update the state object with the data
+
     for key, value in data.items():
         setattr(state, key, value)
     storage.save()
