@@ -20,7 +20,7 @@ classes = {"amenities": Amenity, "cities": City,
 @app_views.route('/status', methods=['GET'],  strict_slashes=False)
 def status():
     """ return the status of your API"""
-    return jsonify({"status": "OK"})
+    return jsonify({"status": "OK"}), 404
 
 
 @app_views.route('/stats', methods=['GET'], strict_slashes=False)
