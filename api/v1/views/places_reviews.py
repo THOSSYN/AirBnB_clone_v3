@@ -10,7 +10,10 @@ from models.user import User
 from models.review import Review
 
 
-@app_views.route('/places/<place_id>/reviews', methods=['GET'], strict_slashes=False)
+p = '/places/<place_id>'
+
+
+@app_views.route(p + '/reviews', methods=['GET'], strict_slashes=False)
 def get_all_reviews(place_id):
     """Displays a list of reviews"""
     if request.method == 'GET':
@@ -22,7 +25,10 @@ def get_all_reviews(place_id):
         return jsonify([item.to_dict() for item in place.reviews])
 
 
-@app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
+r = '/reviews/<review_id>'
+
+
+@app_views.route(r, methods=['GET'], strict_slashes=False)
 def get_review_by_id(review_id):
     """Displays a review by id"""
     if request.method == 'GET':
@@ -34,7 +40,7 @@ def get_review_by_id(review_id):
         return jsonify(review.to_dict())
 
 
-@app_views.route('/reviews/<review_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route(r, methods=['DELETE'], strict_slashes=False)
 def delete_review_by_id(review_id):
     """Deletes a review by id"""
     if request.method == 'DELETE':
@@ -48,7 +54,8 @@ def delete_review_by_id(review_id):
 
         return jsonify({}), 200
 
-@app_views.route('/places/<place_id>/reviews', methods=['POST'], strict_slashes=False)
+
+@app_views.route(r + '/reviews', methods=['POST'], strict_slashes=False)
 def create_review(place_id):
     """Creates a review instance"""
     if request.method == 'POST':
@@ -81,7 +88,7 @@ def create_review(place_id):
         return jsonify(new_review.to_dict()), 201
 
 
-@app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route(r, methods=['PUT'], strict_slashes=False)
 def update_review(review_id):
     """Updates a review"""
     if request.method == 'PUT':
@@ -91,14 +98,15 @@ def update_review(review_id):
             return jsonify({'error': 'Not found'}), 404
 
         put_args = request.get_json()
-        #if not request.is_json:
-            #return ("Not a JSON"), 400
+        # if not request.is_json:
+        # return ("Not a JSON"), 400
 
         if put_args is None:
-            return ("Not a JSON"), 400
+            return("Not a JSON"), 400
 
+        all_keys = ['id', 'user_id', 'place_id', 'created_at', 'updated_at']
         for key, value in put_args.items():
-            if not key in ['id', 'user_id', 'place_id', 'created_at', 'updated_at']:
+            if key not in all_keys:
                 setattr(review, key, value)
 
         storage.save()
