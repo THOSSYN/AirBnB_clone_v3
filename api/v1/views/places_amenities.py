@@ -9,6 +9,7 @@ from models.amenity import Amenity
 
 r = '/places/<place_id>/amenities'
 
+
 @app_views.route(r, methods=['GET'], strict_slashes=False)
 def place_amenities(place_id):
     """Retrieve list of all Amenities objects based on place id"""
@@ -17,6 +18,7 @@ def place_amenities(place_id):
         abort(404)
     list_ameniy = [amenity.to_dict() for amenity in amenities]
     return jsonify(list_ameniy)
+
 
 @app_views.route(r + '/<amenity_id>', methods=['DELETE'], strict_slashes=False)
 def delete_amenity(place_id, amenity_id):
@@ -31,6 +33,7 @@ def delete_amenity(place_id, amenity_id):
                 break
         storage.save()
         return jsonify({}), 200
+
 
 @app_views.route(r + '/<amenity_id>', methods=['POST'], strict_slashes=False)
 def add_amenity(place_id, amenity_id):
