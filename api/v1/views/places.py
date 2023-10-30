@@ -9,7 +9,10 @@ from api.v1.views import app_views
 from models.user import User
 
 
-@app_views.route('/cities/<city_id>/places', methods=['GET'], strict_slashes=False)
+r = '/cities/<city_id>'
+
+
+@app_views.route(r + '/places', methods=['GET'], strict_slashes=False)
 def get_all_places(city_id):
     """Displays a list of places"""
     if request.method == 'GET':
@@ -33,7 +36,10 @@ def get_places_by_id(place_id):
         return jsonify(place.to_dict())
 
 
-@app_views.route('/places/<place_id>', methods=['DELETE'], strict_slashes=False)
+rp = '/places/<place_id>'
+
+
+@app_views.route(rp, methods=['DELETE'], strict_slashes=False)
 def delete_place_by_id(place_id):
     """Displays a list of places"""
     if request.method == 'DELETE':
@@ -48,7 +54,7 @@ def delete_place_by_id(place_id):
         return jsonify({}), 200
 
 
-@app_views.route('/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
+@app_views.route(r + '/places', methods=['POST'], strict_slashes=False)
 def create_places(city_id):
     """Creates a place instance"""
     if request.method == 'POST':
@@ -97,8 +103,9 @@ def update_places(place_id):
         if put_args is None:
             return ("Not a JSON"), 400
 
+        all_keys = ['id', 'user_id', 'city_id', 'created_at', 'updated_at']
         for key, value in put_args.items():
-            if not key in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
+            if key not in all_keys:
                 setattr(place, key, value)
 
         storage.save()
