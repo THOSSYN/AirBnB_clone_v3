@@ -76,4 +76,4 @@ def put_amenity(amenity_id):
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(per_amenity, key, value)
     storage.save()
-    return jsonify(per_amenity.to_dict())
+    return jsonify(per_amenity.to_dict()), 200
