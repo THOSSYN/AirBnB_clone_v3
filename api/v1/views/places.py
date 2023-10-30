@@ -103,3 +103,17 @@ def update_places(place_id):
 
         storage.save()
         return jsonify(place.to_dict()), 200
+
+
+@app_views.route('/places_search', methods=['POST'], strict_slashes=False)
+def search_place():
+    """Retrieves place object by post method"""
+    if request.method == 'POST':
+        post_args = request.get_json()
+
+        if not request.is_json:
+            return ("Not a JSON"), 400
+
+        if not post_args:
+            places = storage.all(Place).values()
+            return jsonify([place.to_dict() for place in places])
