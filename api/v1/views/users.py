@@ -24,22 +24,24 @@ def get_user_by_id(user_id):
         if per_user is None:
             abort(404)
 
-        #if per_user.id == user_id:
+        # if per_user.id == user_id:
         return jsonify(per_user.to_dict())
+
 
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
 def delete_user_by_id(user_id):
     """Deletes a user by its id"""
     if request.method == 'DELETE':
         per_user = storage.get(User, user_id)
-    
+
         if per_user is None:
             abort(404)
-    
+
         storage.delete(per_user)
         storage.save()
 
         return jsonify({}), 200
+
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def post_user():
@@ -61,6 +63,7 @@ def post_user():
         storage.save()
         return jsonify(new_user.to_dict()), 201
 
+
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def put_user(user_id):
     """Updates a user instance"""
@@ -75,7 +78,7 @@ def put_user(user_id):
         return ("Not a JSON"), 400
 
     for key, value in put_args.items():
-        if not key in ['id', 'email', 'created_at', 'updated_at']:
+        if key not in ['id', 'email', 'created_at', 'updated_at']:
             setattr(per_user, key, value)
     storage.save()
     return jsonify(per_user.to_dict())
