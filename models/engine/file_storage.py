@@ -51,7 +51,6 @@ class FileStorage:
         if cls is not None:
             for obj in self.__objects:
                 count += 1
-            return(count)
         return len(self.__objects)
 
     def new(self, obj):
